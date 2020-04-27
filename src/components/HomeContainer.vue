@@ -1,0 +1,103 @@
+<template>
+  <div>
+    <!-- loop -->
+    <mt-swipe :auto="4000">
+      <mt-swipe-item v-for="item in loopList" :key="item.id">
+        <img :src="item.img_url" alt />
+      </mt-swipe-item>
+    </mt-swipe>
+
+    <div class="mui-content">
+      <ul class="mui-table-view mui-grid-view mui-grid-9 contentImg">
+        <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+          <a href="#">
+            
+            <img :src="menu1" alt="">
+            <div class="mui-media-body">新闻资讯</div>
+          </a>
+        </li>
+        <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+          <a href="#">
+            <img :src="menu2" alt="">
+            <div class="mui-media-body">图片文献</div>
+          </a>
+        </li>
+        <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+          <a href="#">
+            <img :src="menu3" alt="">
+            <div class="mui-media-body">商品购买</div>
+          </a>
+        </li>
+        <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+          <a href="#">
+            <img :src="menu4" alt="">
+            <div class="mui-media-body">留言反馈</div>
+          </a>
+        </li>
+        <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+          <a href="#">
+            <img :src="menu5" alt="">
+            <div class="mui-media-body">视频专区</div>
+          </a>
+        </li>
+        <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+          <a href="#">
+            <img :src="menu6" alt="">
+            <div class="mui-media-body">联系我们</div>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</template>
+<script>
+import menu1 from "../images/menu1.png"
+import menu2 from "../images/menu2.png"
+import menu3 from "../images/menu3.png"
+import menu4 from "../images/menu4.png"
+import menu5 from "../images/menu5.png"
+import menu6 from "../images/menu6.png"
+
+
+export default {
+  data() {
+    return {
+            loopList: [],
+            menu1:menu1,
+            menu2:menu2,
+            menu3:menu3,
+            menu4:menu4,
+            menu5:menu5,
+            menu6:menu6
+    };
+  },
+  created() {
+    this.move();
+  },
+  methods: {
+    move() {
+      this.$http
+        .get("http://yapi.shangyuninfo.com/mock/121/api/getLoop")
+        .then(function(res) {
+          this.loopList = res.body.message;
+          console.log(this.loopList);
+        })
+        .catch();
+    }
+  }
+};
+</script>
+<style scoped>
+.mint-swipe {
+  height: 200px;
+}
+.mint-swipe-item img {
+  width: 100%;
+  height: 100%;
+}
+.contentImg img{
+    width: 65%;
+    height: 100%;
+    border-radius: 50%;
+}
+</style>
