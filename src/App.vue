@@ -1,12 +1,12 @@
 <template>
   <div class="container">
     <!-- header -->
-    <mt-header fixed title="天亮教育"></mt-header>
+    <mt-header fixed title="我的项目"></mt-header>
 
     
-
+  <transition mode='out-in'>
     <router-view></router-view>
-
+  </transition>
 
 
     <!-- footer -->
@@ -40,5 +40,18 @@ export default {};
 
 .container{
     padding-top: 40px;
+    padding-bottom: 50px;
+    overflow-x: hidden;
+}
+.v-enter{
+  opacity: 0;
+  transform: translateX(100%);
+}
+.v-leave-to{
+  opacity: 0;
+  transform: translateX(-100%);
+}
+.v-enter-active,.v-leave-active{
+  transition: all .5s ease;
 }
 </style>

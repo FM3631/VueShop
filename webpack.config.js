@@ -11,7 +11,7 @@ module.exports = {
     module: { // 用来配置第三方loader模块的
         rules: [ // 文件的匹配规则
             { test: /\.css$/, use: ['style-loader', 'css-loader'] },//处理css文件的规则
-            { test: /\.(png|jpg|gif|ttf|svg)$/, use: 'url-loader'},//处理图片路径问题
+            { test: /\.(png|jpg|gif|ttf|svg)$/, use: 'url-loader',use: 'url-loader?limit=7631&name=[hash:8]-[name].[ext]'},//处理图片路径问题
             { test: /\.js$/, use: 'babel-loader', exclude: /node_modules/ },
             { test: /\.vue$/, use: 'vue-loader' },
               

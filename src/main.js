@@ -3,11 +3,12 @@ import Vue from '../node_modules/vue/dist/vue.js'
 import App from './App.vue'
 
 // 引入 mint-ui
-import { Header,Swipe, SwipeItem } from 'mint-ui';
+import { Header,Swipe, SwipeItem ,Button} from 'mint-ui';
 import '../node_modules/mint-ui/lib/style.css'
 Vue.component(Header.name, Header);
 Vue.component(Swipe.name, Swipe);
 Vue.component(SwipeItem.name, SwipeItem);
+Vue.component(Button.name, Button);
 
 // 引入mui
 
