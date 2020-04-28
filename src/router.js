@@ -13,6 +13,7 @@ let router = new VueRouter({
         {path:'/memberContainer',component:memberContainer},
         {path:'/shopcarContainer',component:shopcarContainer},
         {path:'/searchContainer',component:searchContainer},
-    ]
+    ],
+    linkActiveClass:'mui-active'
 })
 export default  router
