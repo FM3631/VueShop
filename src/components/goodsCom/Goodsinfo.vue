@@ -2,21 +2,11 @@
   <div>
     <!-- 小圆点 -->
     <transition @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter">
-      <div class="ball" v-show="flag"></div>
+      <div class="ball" v-show="flag" ref='ball'></div>
     </transition>
 
     <!-- loop -->
-    <div class="mui-card">
-      <div class="mui-card-content">
-        <div class="mui-card-content-inner">
-          <mt-swipe :auto="4000">
-            <mt-swipe-item v-for="item in loopList" :key="item.id">
-              <img :src="item.img_url" alt />
-            </mt-swipe-item>
-          </mt-swipe>
-        </div>
-      </div>
-    </div>
+    <goodsLoop></goodsLoop>
 
     <!-- goods -->
     <div class="mui-card">
@@ -29,7 +19,7 @@
           </p>
           <p>
             购买数量
-            <goodsBox></goodsBox>
+            <goodsBox @getnumBox="getnumBox1"></goodsBox>
           </p>
           <p>
             <mt-button type="primary" size="small">点击购买</mt-button>
@@ -54,40 +44,45 @@
 </template>
 <script>
 import goodsBox from "../goodsnumContainer/goodsnum.vue";
+import goodsLoop from '../loopContainer/GoodsLoop.vue'
 export default {
   data() {
     return {
       loopList: [],
-      flag: false
+      flag: false,
+      getCount:1
     };
   },
-  created() {
-    this.getLoopList();
-  },
+  
   methods: {
-    getLoopList() {
-      this.$http
-        .get("http://yapi.shangyuninfo.com/mock/121/api/getLoop_1587914991785")
-        .then(result => {
-          this.loopList = result.body.message;
-        })
-        .catch();
-    },
+    
+    
     beforeEnter(el) {
       el.style.transform = "translate(0,0)";
     },
     enter(el, done) {
       el.offsetWidth;
-      el.style.transform = "translate(205px,523px)";
+      const ballPosition = this.$refs.ball.getBoundingClientRect();
+      const badgePosition = document.getElementById('badge').getBoundingClientRect();
+      const positionX = badgePosition.left - ballPosition.left;
+      const positionY = badgePosition.top - ballPosition.top;
+
+      el.style.transform = `translate(${positionX}px,${positionY}px)`;
       el.style.transition = "all 1s ease";
       done();
     },
     afterEnter(el) {
       this.flag = !this.flag;
-    }
+    },
+    //获取购物车数据
+    getnumBox1(count){
+      this.getCount = count;
+      console.log(this.getCount)
+    },
   },
   components: {
-    goodsBox
+    goodsBox,
+    goodsLoop
   }
 };
 </script>
@@ -104,11 +99,5 @@ export default {
   left: 141px;
   top: 391px;
 }
-.mint-swipe {
-  height: 200px;
-}
-.mint-swipe-item img {
-  width: 100%;
-  height: 100%;
-}
+
 </style>

@@ -8,12 +8,12 @@
         </div>
         <div class="goodsBoxDown">
             <p style="margin-top:-4px">
-                <span style="color:red;font-size:14px;font-weight:600">￥{{item.price}}</span>
-                <span style="color:#eee;font-size:12px; text-decoration: line-through;">￥1999</span>
+                <span style="color:red;font-size:14px;font-weight:600">￥{{item.now_price}}</span>
+                <span style="color:#eee;font-size:12px; text-decoration: line-through;">￥{{item.old_price}}</span>
             </p>
             <p class="goodsBoxDownP">
                 <span style="font-size:12px">热卖中</span>
-                <span style="font-size:12px">剩20件</span>
+                <span style="font-size:12px">剩{{item.own}}件</span>
             </p>
         </div>
     </router-link>
@@ -32,9 +32,9 @@ export default {
     },
     methods:{
         getGoodsList(){
-            this.$http.get('http://yapi.shangyuninfo.com/mock/121/api/getshopcarlist')
+            this.$http.get('http://yapi.shangyuninfo.com/mock/121/api/goodslist?pageindex=1')
             .then(result=>{
-                // console.log(result)
+                console.log(result)
                 this.goodsList = result.body.message
             })
             .catch()
