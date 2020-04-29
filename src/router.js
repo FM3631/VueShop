@@ -8,6 +8,8 @@ import searchContainer from './components/SearchContainer.vue'
 import newsList from './components/newsCom/NewsList.vue'
 import goodsList from './components/goodsCom/GoodsList.vue'
 import contactMe from './components/contactCom/contactMe.vue'
+import goodsinfo from './components/goodsCom/Goodsinfo.vue'
+
 let router = new VueRouter({
     routes:[
         {path:'/',component:homeContainer},
@@ -17,7 +19,8 @@ let router = new VueRouter({
         {path:'/searchContainer',component:searchContainer},
         {path:'/newsList',component:newsList},
         {path:'/goodsList',component:goodsList},
-        {path:'/contactMe',component:contactMe}
+        {path:'/contactMe',component:contactMe},
+        {path:'/goodsinfo/:id',component:goodsinfo}
     ],
     linkActiveClass:'mui-active'
 })

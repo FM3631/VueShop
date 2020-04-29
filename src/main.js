@@ -16,6 +16,8 @@ import '../lib/mui/css/mui.min.css'
 import '../lib/mui/fonts/mui.ttf'
 import '../lib/mui/css/icons-extra.css'
 import '../lib/mui/fonts/mui-icons-extra.ttf'
+import mui from '../lib/mui/js/mui.js'
+Vue.prototype.mui = mui
 
 
 //路由

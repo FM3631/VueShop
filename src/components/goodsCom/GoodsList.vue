@@ -1,6 +1,7 @@
 <template>
 <div>
-    <div class="goodsBox" v-for='item in goodsList' :key="item.id">
+    <!-- 传递参数用属性绑定的方法 -->
+    <router-link class="goodsBox" v-for='item in goodsList' :key="item.id" :to="'/goodsinfo/'+item.id">
         <div class="goodsBoxTop">
             <img :src="item.img_url" alt="">
             <p style="color:#000;font-weight:600;white-space: nowrap;overflow: hidden; text-overflow: ellipsis; margin-bottom:4px">{{item.title}}</p>
@@ -15,7 +16,7 @@
                 <span style="font-size:12px">剩20件</span>
             </p>
         </div>
-    </div>
+    </router-link>
 </div>
 
 </template>
