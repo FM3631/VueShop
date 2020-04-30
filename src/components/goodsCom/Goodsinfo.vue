@@ -23,7 +23,7 @@
           </p>
           <p>
             <mt-button type="primary" size="small">点击购买</mt-button>
-            <mt-button type="danger" size="small" @click="flag=!flag">加入购物车</mt-button>
+            <mt-button type="danger" size="small" @click="addToShopCar">加入购物车</mt-button>
           </p>
         </div>
       </div>
@@ -50,13 +50,17 @@ export default {
     return {
       loopList: [],
       flag: false,
-      getCount:1
+      getCount:1,
+      id:this.$route.params.id,
+      selected:true,
+      goodsinfo:[]
     };
+  },
+  created(){
+    this.getgoods()
   },
   
   methods: {
-    
-    
     beforeEnter(el) {
       el.style.transform = "translate(0,0)";
     },
@@ -74,11 +78,40 @@ export default {
     afterEnter(el) {
       this.flag = !this.flag;
     },
+
+
+
+
     //获取购物车数据
     getnumBox1(count){
       this.getCount = count;
-      console.log(this.getCount)
+      // console.log(this.getCount)
     },
+
+    //获取商品数据
+    getgoods(){
+      this.$http.get('http://yapi.shangyuninfo.com/mock/121/api/goodsinfo')
+      .then(result=>{
+        this.goodsinfo=result.body.message[0]
+        console.log(this.goodsinfo)
+      })
+      .catch()
+    },
+    //加入购物车
+    addToShopCar(){
+      this.flag=!this.flag
+
+      var getGoodinfo = {
+        id:this.id,
+        price:this.goodsinfo.now_price,
+        count:this.getCount,
+        selected:true,
+      }
+      this.$store.commit('getinfoToShopCar',getGoodinfo)
+    }
+
+
+
   },
   components: {
     goodsBox,

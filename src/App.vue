@@ -1,13 +1,16 @@
 <template>
   <div class="container">
     <!-- header -->
-    <mt-header fixed title="我的项目"></mt-header>
+    <!-- <mt-header fixed title="我的项目"></mt-header> -->
+    <mt-header fixed title="我的项目">
+      <span slot="left" @click="goback">
+        <mt-button icon="back" v-show='flag'>返回</mt-button>
+      </span>
+    </mt-header>
 
-    
-  <transition mode='out-in'>
-    <router-view></router-view>
-  </transition>
-
+    <transition mode="out-in">
+      <router-view></router-view>
+    </transition>
 
     <!-- footer -->
     <nav class="mui-bar mui-bar-tab">
@@ -22,7 +25,7 @@
       </router-link>
       <router-link class="mui-tab-item-wh" to="/shopcarContainer">
         <span class="mui-icon mui-icon-extra mui-icon-extra-cart">
-          <span class="mui-badge" id='badge'>0</span>
+          <span class="mui-badge" id="badge">{{this.$store.getters.getAllCount}}</span>
         </span>
         <span class="mui-tab-label">购物车</span>
       </router-link>
@@ -34,31 +37,56 @@
   </div>
 </template>
 <script>
-export default {};
+export default {
+  data(){
+    return {
+      flag:false
+    }
+  },
+  methods: {
+    goback() {
+      this.$router.go(-1);
+    }
+  },
+  watch:{
+    '$route.path'(newVal){
+      if(newVal == '/homeContainer'){
+        this.flag = false
+      }else if(newVal == '/'){
+        this.flag = false
+      }else{
+        this.flag = true
+      }
+    }
+  }
+};
 </script>
 <style scoped>
-*{touch-action: none;} 
-.container{
-    padding-top: 40px;
-    padding-bottom: 50px;
-    overflow-x: hidden;
+* {
+  touch-action: none;
 }
-.v-enter{
+.container {
+  padding-top: 40px;
+  padding-bottom: 50px;
+  overflow-x: hidden;
+}
+.v-enter {
   opacity: 0;
   transform: translateX(100%);
 }
-.v-leave-to{
+.v-leave-to {
   opacity: 0;
   transform: translateX(-100%);
 }
-.v-enter-active,.v-leave-active{
-  transition: all .5s ease;
+.v-enter-active,
+.v-leave-active {
+  transition: all 0.5s ease;
 }
 
-.mui-active{
+.mui-active {
   color: #007aff;
 }
-.mui-bar-tab .mui-tab-item-wh{
+.mui-bar-tab .mui-tab-item-wh {
   display: table-cell;
   overflow: hidden;
   width: 1%;
@@ -69,14 +97,14 @@ export default {};
   text-overflow: ellipsis;
   /* color: #ccc; */
 }
-.mui-bar-tab .mui-tab-item-wh .mui-icon{
+.mui-bar-tab .mui-tab-item-wh .mui-icon {
   top: 3px;
   width: 24px;
   height: 24px;
   padding-top: 0;
   padding-bottom: 0;
 }
-.mui-bar-tab .mui-tab-item-wh .mui-icon ~ .mui-tab-label{
+.mui-bar-tab .mui-tab-item-wh .mui-icon ~ .mui-tab-label {
   font-size: 11px;
   display: block;
   overflow: hidden;

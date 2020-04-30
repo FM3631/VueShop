@@ -34,7 +34,7 @@ export default {
         getGoodsList(){
             this.$http.get('http://yapi.shangyuninfo.com/mock/121/api/goodslist?pageindex=1')
             .then(result=>{
-                console.log(result)
+                // console.log(result)
                 this.goodsList = result.body.message
             })
             .catch()
