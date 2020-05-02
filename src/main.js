@@ -33,7 +33,8 @@ Vue.use(VueRouter)
 import VueResource from 'vue-resource'
 Vue.use(VueResource)
 
-
+//清除缓存
+// localStorage.clear()
 //加载页面时后去购物车count
 var car = JSON.parse(localStorage.getItem('car')||'[]')
 let store = new Vuex.Store({
@@ -56,6 +57,8 @@ let store = new Vuex.Store({
             //localStorage 存储购物车数据
             localStorage.setItem('car',JSON.stringify(state.car))
         },
+
+
         updataSelectCount(state,goodsinfo){
             state.car.some(item=>{
                 if(item.id===goodsinfo.id){
@@ -65,6 +68,16 @@ let store = new Vuex.Store({
             })
             localStorage.setItem('car',JSON.stringify(state.car))
             },
+
+            remove(state,id){
+                state.car.some((item,i)=>{
+                    if(item.id==id){
+                        state.car.splice(i,1)
+                        return true
+                    }
+                })
+                localStorage.setItem('car',JSON.stringify(state.car))
+             }
     },
     getters:{
         getAllCount(state){
@@ -74,6 +87,28 @@ let store = new Vuex.Store({
             })
             return c
         },
+
+        getGoodsCount(state){
+            var x = {}  //{id:count}
+            state.car.forEach(item=>{
+                x[item.id] = item.count
+            })
+            return x
+        },
+
+        // 获取商品的总数量以及总价格
+        getAllCountANDAmount(state){
+            var obj ={
+                m :0,  //数量
+                n : 0, //总价
+            }
+           
+        state.car.forEach(item=>{
+            obj.m+=item.count,
+            obj.n+=item.price*item.count
+        })
+        return obj
+        }
         
     }
 })
