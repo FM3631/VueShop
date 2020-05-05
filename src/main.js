@@ -62,7 +62,7 @@ let store = new Vuex.Store({
         updataSelectCount(state,goodsinfo){
             state.car.some(item=>{
                 if(item.id===goodsinfo.id){
-                    item.count+=parseInt(goodsinfo.count)
+                    item.count=parseInt(goodsinfo.count)
                     return true
                 }
             })
