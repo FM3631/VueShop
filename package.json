@@ -27,6 +27,7 @@
     "webpack": "^4.43.0"
   },
   "dependencies": {
+    "jquery": "^3.5.1",
     "mint-ui": "^2.2.13",
     "vue": "^2.6.11",
     "vue-resource": "^1.5.1"

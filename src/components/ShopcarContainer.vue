@@ -4,7 +4,7 @@
       <div class="mui-card" v-for="(item,i) in goodsList" :key='item.id'>
         <div class="mui-card-content">
           <div class="mui-card-content-inner">
-            <mt-switch></mt-switch>
+            <mt-switch  v-model="$store.getters.getGoodsSelected[item.id]" @change="selectedChange(item.id,$store.getters.getGoodsSelected[item.id])"></mt-switch>
             <div class="box1">
               <img :src="item.img_url" alt />
             </div>
@@ -34,7 +34,7 @@
               <p>已勾选数量:{{$store.getters.getAllCountANDAmount.m}}件 总价:￥{{$store.getters.getAllCountANDAmount.n}}</p>
             </div>
             <mt-button type="danger" style="float:right">去结算</mt-button>
-            <p>{{$store.getters.getGoodsSelected}}</p>
+            <!-- <p>{{$store.getters.getGoodsSelected}}</p> -->
           </div>
         </div>
       </div>
@@ -69,14 +69,16 @@ export default {
         })
         .catch();
     },
-
+    selectedChange(id,val){
+      // console.log(id+'---------'+val)
+      this.$store.commit('upadateGoodsSelected',{id,selected:val})
+    },
     //删除功能
     // id:store中的数据   index指的是获取到的数据
     del(id,index){
         this.goodsList.splice(index,1);
         this.$store.commit('remove',id)
     },
-    
   },
   components: {
       shopnum

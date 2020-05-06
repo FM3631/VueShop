@@ -3,8 +3,8 @@
     <!-- header -->
     <!-- <mt-header fixed title="我的项目"></mt-header> -->
     <mt-header fixed title="我的项目">
-      <span slot="left" @click="goback">
-        <mt-button icon="back" v-show='flag'>返回</mt-button>
+      <span slot="left"  @click="goback" v-show='flag'>
+        <mt-button icon="back" >返回</mt-button>
       </span>
     </mt-header>
 
@@ -48,11 +48,13 @@ export default {
       this.$router.go(-1);
     }
   },
+  created(){
+    //返回按钮的判断条件
+    this.flag = this.$route.path == '/homeContainer'?false:true
+  },
   watch:{
     '$route.path'(newVal){
       if(newVal == '/homeContainer'){
-        this.flag = false
-      }else if(newVal == '/'){
         this.flag = false
       }else{
         this.flag = true

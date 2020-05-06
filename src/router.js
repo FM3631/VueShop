@@ -12,7 +12,7 @@ import goodsinfo from './components/goodsCom/Goodsinfo.vue'
 
 let router = new VueRouter({
     routes:[
-        {path:'/',component:homeContainer},
+        {path:'/',redirect:'/homeContainer'},
         {path:'/homeContainer',component:homeContainer},
         {path:'/memberContainer',component:memberContainer},
         {path:'/shopcarContainer',component:shopcarContainer},
